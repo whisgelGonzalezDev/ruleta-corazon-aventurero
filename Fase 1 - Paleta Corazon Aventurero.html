@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fase 1 · Paleta — Corazón Aventurero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#16213C;
+    --navy-night:#0E1730;
+    --navy-steel:#22335A;
+    --gold:#E8B24C;
+    --gold-mid:#D2A056;
+    --gold-deep:#A8763B;
+    --red:#D22A38;
+    --red-deep:#A8172A;
+    --ivory:#F5EFE3;
+    --ink:#0B1224;
+    --line:rgba(232,178,76,.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{
+    background:
+      radial-gradient(1200px 700px at 78% -8%, rgba(34,51,90,.55), transparent 60%),
+      radial-gradient(900px 600px at 8% 108%, rgba(168,23,42,.16), transparent 55%),
+      var(--navy-night);
+    color:var(--ivory);
+    font-family:'Outfit',system-ui,sans-serif;
+    min-height:100vh;
+    padding:64px 40px 96px;
+  }
+  .wrap{max-width:1180px;margin:0 auto}
+
+  /* Header */
+  .eyebrow{
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;letter-spacing:.42em;text-transform:uppercase;
+    font-size:12px;color:var(--gold);opacity:.92;
+  }
+  .head{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+    border-bottom:1px solid var(--line);padding-bottom:34px;margin-bottom:48px;
+  }
+  h1{
+    font-family:'Outfit',sans-serif;font-weight:700;
+    font-size:clamp(30px,4vw,46px);line-height:1.06;margin-top:14px;letter-spacing:-.015em;
+  }
+  h1 b{color:var(--gold);font-weight:800}
+  .head p{margin-top:16px;max-width:46ch;color:rgba(245,239,227,.66);font-size:16px;line-height:1.6}
+  .logo-chip{
+    flex:0 0 auto;width:212px;border-radius:18px;overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 24px 60px -28px rgba(0,0,0,.7);
+    background:var(--navy);
+  }
+  .logo-chip img{display:block;width:100%}
+  .logo-chip .cap{
+    font-family:'Montserrat',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(245,239,227,.5);padding:10px 14px;border-top:1px solid var(--line);
+  }
+
+  /* Section title */
+  .sec-title{display:flex;align-items:center;gap:16px;margin:54px 0 26px}
+  .sec-title h2{font-family:'Outfit',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.01em}
+  .sec-title .num{
+    font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;color:var(--ink);
+    background:var(--gold);width:30px;height:30px;border-radius:50%;
+    display:grid;place-items:center;flex:0 0 auto;
+  }
+  .sec-title .rule{flex:1;height:1px;background:var(--line)}
+
+  /* Swatch groups */
+  .group-label{
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+    color:rgba(245,239,227,.55);margin:32px 0 14px;
+  }
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .sw{
+    border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02);box-shadow:0 16px 40px -26px rgba(0,0,0,.8);
+  }
+  .sw .chip{height:118px;position:relative}
+  .sw .chip .role{
+    position:absolute;left:12px;top:12px;font-family:'Montserrat',sans-serif;
+    font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    padding:5px 9px;border-radius:100px;background:rgba(11,18,36,.42);backdrop-filter:blur(2px);
+  }
+  .sw .meta{padding:14px 16px 17px}
+  .sw .name{font-weight:600;font-size:15px}
+  .sw .hex{
+    font-family:'Montserrat',monospace;font-size:13px;letter-spacing:.06em;
+    color:var(--gold);margin-top:5px;display:flex;align-items:center;gap:8px;cursor:pointer;
+  }
+  .sw .hex:hover{color:var(--ivory)}
+  .sw .desc{font-size:12.5px;color:rgba(245,239,227,.5);margin-top:10px;line-height:1.5}
+
+  .accent-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .accent-card{
+    border-radius:18px;padding:24px;border:1px solid var(--line);
+    background:linear-gradient(160deg,rgba(34,51,90,.5),rgba(14,23,48,.5));
+    display:flex;gap:18px;align-items:center;
+  }
+  .accent-card .dot{width:58px;height:58px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 4px rgba(255,255,255,.06),0 10px 26px -8px rgba(0,0,0,.7)}
+  .accent-card .name{font-weight:600;font-size:15px}
+  .accent-card .hex{font-family:'Montserrat',monospace;font-size:13px;color:var(--gold);margin-top:4px}
+  .accent-card.is-accent .hex{color:var(--ink)}
+  .accent-card .tag{font-size:11.5px;color:rgba(245,239,227,.55);margin-top:8px;line-height:1.45}
+  .accent-card.is-accent{
+    background:linear-gradient(150deg,#F2C766,#E8B24C 55%,#C98C36);
+    border-color:rgba(255,255,255,.3);color:var(--ink);
+  }
+  .accent-card.is-accent .name,.accent-card.is-accent .tag{color:var(--ink)}
+  .accent-card.is-accent .tag{opacity:.75}
+
+  /* Application preview */
+  .apply{
+    margin-top:18px;display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch;
+  }
+  .panel{
+    border-radius:20px;border:1px solid var(--line);padding:26px;
+    background:linear-gradient(160deg,rgba(34,51,90,.34),rgba(14,23,48,.5));
+  }
+  .panel h3{font-family:'Outfit',sans-serif;font-weight:600;font-size:15px;margin-bottom:4px}
+  .panel .sub{font-size:12.5px;color:rgba(245,239,227,.5);margin-bottom:20px;line-height:1.5}
+
+  /* mini wheel */
+  .wheel-mini{display:flex;flex-direction:column;align-items:center;gap:18px}
+  .wheel-stage{position:relative;width:230px;height:230px}
+  .wheel-pointer{
+    position:absolute;top:-6px;left:50%;transform:translateX(-50%);z-index:3;
+    width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;
+    border-top:30px solid var(--gold);filter:drop-shadow(0 4px 6px rgba(0,0,0,.5));
+  }
+  .wheel-pointer::after{content:"";position:absolute;top:-30px;left:-8px;width:16px;height:16px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px var(--navy-night)}
+  .disc{width:230px;height:230px;border-radius:50%;position:relative;box-shadow:0 0 0 8px var(--navy),0 0 0 11px var(--gold-deep),0 26px 60px -20px rgba(0,0,0,.8)}
+  .disc .center{
+    position:absolute;inset:0;margin:auto;width:74px;height:74px;border-radius:50%;z-index:2;
+    background:radial-gradient(circle at 38% 32%,#F2C766,#E8B24C 48%,#B07E32);
+    display:grid;place-items:center;color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;letter-spacing:.06em;
+    box-shadow:0 0 0 5px var(--navy),0 8px 22px -6px rgba(0,0,0,.7);cursor:pointer;
+  }
+  .nums{font-family:'Montserrat',monospace;font-size:12px;color:rgba(245,239,227,.7);text-align:center;line-height:1.6}
+
+  /* type spec */
+  .type-row{display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .type-row:last-child{border-bottom:0}
+  .type-row .lab{font-family:'Montserrat',sans-serif;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,239,227,.45);width:96px;flex:0 0 auto}
+  .type-mont{font-family:'Montserrat',sans-serif}
+  .type-outfit{font-family:'Outfit',sans-serif}
+  .big-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:40px;color:var(--gold);letter-spacing:.02em}
+  .spin-demo{
+    margin-top:6px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 26px;border-radius:100px;cursor:pointer;border:1px solid rgba(255,255,255,.18);
+    background:radial-gradient(circle at 35% 25%,#F2C766,#E8B24C 50%,#C0892F);
+    color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:.16em;font-size:13px;
+    box-shadow:0 12px 30px -10px rgba(232,178,76,.5),inset 0 1px 0 rgba(255,255,255,.5);
+  }
+
+  .footnote{
+    margin-top:56px;padding-top:26px;border-top:1px solid var(--line);
+    color:rgba(245,239,227,.55);font-size:13.5px;line-height:1.65;max-width:74ch;
+  }
+  .footnote b{color:var(--gold);font-weight:600}
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;
+    background:var(--gold);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:700;
+    font-size:12.5px;letter-spacing:.04em;padding:11px 20px;border-radius:100px;pointer-events:none;
+    transition:.25s;box-shadow:0 12px 30px -10px rgba(0,0,0,.6);z-index:50;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  @media(max-width:920px){
+    .swatches{grid-template-columns:repeat(2,1fr)}
+    .accent-row{grid-template-columns:1fr}
+    .apply{grid-template-columns:1fr}
+    .head{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<div class="wrap" data-screen-label="Fase 1 · Paleta">
+
+  <div class="head">
+    <div>
+      <div class="eyebrow">Fase 1 · Identidad &amp; Color</div>
+      <h1>Paleta extraída del <b>logotipo</b><br />Corazón Aventurero</h1>
+      <p>Colores muestreados de los píxeles reales del logo. Esta es la base del sistema visual de la <b style="color:var(--gold)">Ruleta de Sorteo 1–100</b> — Tour Choroní &amp; Tikimijima. Confírmame la dirección antes de detallar los componentes.</p>
+    </div>
+    <div class="logo-chip">
+      <img src="assets/logo-corazon-aventurero.png" alt="Logo Corazón Aventurero" />
+      <div class="cap">Fuente del muestreo</div>
+    </div>
+  </div>
+
+  <!-- PALETTE -->
+  <div class="sec-title">
+    <div class="num">1</div>
+    <h2>Colores #HEX</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="group-label">Azules · Base corporativa (fondo del disco)</div>
+  <div class="swatches">
+    <div class="sw">
+      <div class="chip" style="background:linear-gradient(150deg,#1A2748,#16213C)"><span class="role">Primario</span></div>
+      <div class="meta"><div class="name">Azul Marino</div><div class="hex" data-hex="#16213C">#16213C <span style="opacity:.5">⧉</span></div><div class="desc">Fondo del logo. Base del disco y de la interfaz.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#0E1730"><span class="role">Profundidad</span></div>
+      <div class="meta"><div class="name">Azul Noche</div><div class="hex" data-hex="#0E1730">#0E1730 <span style="opacity:.5">⧉</span></div><div class="desc">Sombras, viñeta y fondos de pantalla.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#22335A"><span class="role">Segmento A</span></div>
+      <div class="meta"><div class="name">Azul Acero</div><div class="hex" data-hex="#22335A">#22335A <span style="opacity:.5">⧉</span></div><div class="desc">Una de las dos secciones alternas del disco.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#F5EFE3"><span class="role" style="background:rgba(11,18,36,.6)">Texto</span></div>
+      <div class="meta"><div class="name">Marfil</div><div class="hex" data-hex="#F5EFE3">#F5EFE3 <span style="opacity:.5">⧉</span></div><div class="desc">Números y texto sobre fondos oscuros.</div></div>
+    </div>
+  </div>
+
+  <div class="group-label">Oro · Rosa de los vientos</div>
+  <div class="swatches">
+    <div class="sw">
+      <div class="chip" style="background:radial-gradient(circle at 35% 30%,#F2C766,#E8B24C 55%,#C98C36)"><span class="role" style="color:#0B1224;background:rgba(255,255,255,.35)">Acento</span></div>
+      <div class="meta"><div class="name">Oro Brillo</div><div class="hex" data-hex="#E8B24C">#E8B24C <span style="opacity:.5">⧉</span></div><div class="desc">Color de acento → pointer y botón Girar.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#D2A056"><span class="role">Medio</span></div>
+      <div class="meta"><div class="name">Oro Aventurero</div><div class="hex" data-hex="#D2A056">#D2A056 <span style="opacity:.5">⧉</span></div><div class="desc">Separadores, anillos y detalles finos.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#A8763B"><span class="role">Sombra</span></div>
+      <div class="meta"><div class="name">Oro Profundo</div><div class="hex" data-hex="#A8763B">#A8763B <span style="opacity:.5">⧉</span></div><div class="desc">Bisel inferior del oro, profundidad metálica.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#F7D79B"><span class="role">Brillo alto</span></div>
+      <div class="meta"><div class="name">Oro Luz</div><div class="hex" data-hex="#F7D79B">#F7D79B <span style="opacity:.5">⧉</span></div><div class="desc">Reflejo/highlight en relieves y botones.</div></div>
+    </div>
+  </div>
+
+  <div class="group-label">Rojo · Corazón &amp; logotipo</div>
+  <div class="swatches">
+    <div class="sw">
+      <div class="chip" style="background:linear-gradient(150deg,#E1313F,#D22A38)"><span class="role">Primario cálido</span></div>
+      <div class="meta"><div class="name">Rojo Corazón</div><div class="hex" data-hex="#D22A38">#D22A38 <span style="opacity:.5">⧉</span></div><div class="desc">Segmento alterno B del disco. Energía del logo.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#A8172A"><span class="role">Sombra</span></div>
+      <div class="meta"><div class="name">Rojo Profundo</div><div class="hex" data-hex="#A8172A">#A8172A <span style="opacity:.5">⧉</span></div><div class="desc">Volumen del corazón y bisel de segmentos.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#0B1224"><span class="role">Casi negro</span></div>
+      <div class="meta"><div class="name">Tinta</div><div class="hex" data-hex="#0B1224">#0B1224 <span style="opacity:.5">⧉</span></div><div class="desc">Texto sobre oro y contornos de máximo contraste.</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:linear-gradient(120deg,#16213C 0 25%,#D22A38 25% 50%,#E8B24C 50% 75%,#F5EFE3 75% 100%)"><span class="role">Resumen</span></div>
+      <div class="meta"><div class="name">Los 4 esenciales</div><div class="hex" style="color:var(--ivory)">Marino · Rojo · Oro · Marfil</div><div class="desc">El cuarteto que rige todo el sistema.</div></div>
+    </div>
+  </div>
+
+  <!-- ACCENT -->
+  <div class="sec-title">
+    <div class="num">2</div>
+    <h2>Color de acento / contraste</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="accent-row">
+    <div class="accent-card is-accent">
+      <div class="dot" style="background:radial-gradient(circle at 35% 30%,#F7D79B,#E8B24C 55%,#C98C36)"></div>
+      <div><div class="name">Oro Brillo · ACENTO</div><div class="hex">#E8B24C</div><div class="tag">Máximo pop sobre marino y rojo. Para indicador, botón Girar y el número ganador.</div></div>
+    </div>
+    <div class="accent-card">
+      <div class="dot" style="background:#D22A38"></div>
+      <div><div class="name">Rojo Corazón · soporte</div><div class="hex">#D22A38</div><div class="tag">Acento cálido secundario para estados y resaltados de acción.</div></div>
+    </div>
+    <div class="accent-card">
+      <div class="dot" style="background:#22335A"></div>
+      <div><div class="name">Azul Acero · neutro</div><div class="hex">#22335A</div><div class="tag">Reposo y segmentos; deja respirar al oro y al rojo.</div></div>
+    </div>
+  </div>
+
+  <!-- APPLICATION -->
+  <div class="sec-title">
+    <div class="num">3</div>
+    <h2>Cómo se aplica (vista previa)</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="apply">
+    <div class="panel">
+      <h3>Disco · alternancia de los 3 tonos del logo</h3>
+      <p class="sub">Marino ↔ Rojo en las 100 secciones, con separadores finos en oro y números en marfil. El acento oro corona el pointer y el centro.</p>
+      <div class="wheel-mini">
+        <div class="wheel-stage">
+          <div class="wheel-pointer"></div>
+          <div class="disc" id="disc"></div>
+          <div class="center" style="position:absolute;inset:0;margin:auto">GIRAR</div>
+        </div>
+        <div class="nums">Números 1–100 visibles · radiales · Montserrat 800</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Tipografía recomendada</h3>
+      <p class="sub">Pareja moderna y legible incluso a alta densidad.</p>
+      <div class="type-row"><div class="lab">Números</div><div><div class="big-num">07 · 42 · 88</div><div style="font-size:11.5px;color:rgba(245,239,227,.5);margin-top:2px">Montserrat 800 — geométrica, gran legibilidad radial</div></div></div>
+      <div class="type-row"><div class="lab">Títulos</div><div><div class="type-outfit" style="font-size:24px;font-weight:700">Tour Choroní</div><div style="font-size:11.5px;color:rgba(245,239,227,.5);margin-top:2px">Outfit — limpia y contemporánea</div></div></div>
+      <div class="type-row"><div class="lab">Acción</div><div><div class="spin-demo">GIRAR ▸</div></div></div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <b>Siguiente paso →</b> Con tu visto bueno a esta paleta, paso a la <b>Fase 2</b>: el disco completo 1–100, el indicador y el botón central, y luego la <b>ruleta interactiva que gira de verdad</b>. ¿Validas estos #HEX o ajusto alguno (por ejemplo un acento más cálido o un toque turquesa “playero”)?
+  </div>
+
+</div>
+
+<div class="toast" id="toast">HEX copiado</div>
+
+<script>
+  // Build mini-wheel conic preview (navy/red alternating with gold ticks)
+  (function(){
+    const disc = document.getElementById('disc');
+    const N = 40; // preview density
+    const stops = [];
+    for(let i=0;i<N;i++){
+      const a0 = (360/N)*i, a1 = (360/N)*(i+1);
+      const col = i%2===0 ? '#22335A' : '#D22A38';
+      stops.push(`${col} ${a0}deg ${a1}deg`);
+    }
+    disc.style.background = `conic-gradient(${stops.join(',')})`;
+  })();
+
+  // Copy HEX
+  const toast = document.getElementById('toast');
+  let t;
+  document.querySelectorAll('.hex[data-hex]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const hex = el.getAttribute('data-hex');
+      navigator.clipboard && navigator.clipboard.writeText(hex);
+      toast.textContent = hex + ' copiado';
+      toast.classList.add('show');
+      clearTimeout(t); t=setTimeout(()=>toast.classList.remove('show'),1100);
+    });
+  });
+</script>
+</body>
+</html>
