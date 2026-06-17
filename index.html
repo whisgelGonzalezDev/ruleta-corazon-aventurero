@@ -1,198 +1,592 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ruleta de Sorteo · Corazón Aventurero</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<style>
-  :root{
-    --navy:#16213C;
-    --navy-night:#0E1730;
-    --navy-steel:#22335A;
-    --gold:#E8B24C;
-    --gold-mid:#D2A056;
-    --gold-deep:#A8763B;
-    --gold-light:#F7D79B;
-    --red:#D22A38;
-    --red-deep:#A8172A;
-    --ivory:#F5EFE3;
-    --ink:#0B1224;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    background:
-      radial-gradient(1100px 760px at 50% -12%, rgba(34,51,90,.7), transparent 62%),
-      radial-gradient(900px 620px at 84% 116%, rgba(168,23,42,.18), transparent 56%),
-      radial-gradient(760px 560px at 8% 108%, rgba(232,178,76,.10), transparent 55%),
-      var(--navy-night);
-    color:var(--ivory);
-    font-family:'Outfit',system-ui,sans-serif;
-    min-height:100vh;
-    display:flex;flex-direction:column;align-items:center;
-    padding:30px 20px 44px;-webkit-font-smoothing:antialiased;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruleta de Sorteo · Corazón Aventurero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #16213C;
+      --navy-night: #0E1730;
+      --navy-steel: #22335A;
+      --gold: #E8B24C;
+      --gold-mid: #D2A056;
+      --gold-deep: #A8763B;
+      --gold-light: #F7D79B;
+      --red: #D22A38;
+      --red-deep: #A8172A;
+      --ivory: #F5EFE3;
+      --ink: #0B1224;
+    }
 
-  /* ---- Header ---- */
-  .topbar{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;margin-bottom:6px}
-  .brand{display:flex;align-items:center;gap:14px}
-  .brand img{width:50px;height:50px;border-radius:50%;border:1.5px solid rgba(232,178,76,.45);object-fit:cover;box-shadow:0 8px 22px -10px rgba(0,0,0,.7)}
-  .brand .bn{font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:.04em;font-size:15px;white-space:nowrap}
-  .brand .bn span{color:var(--gold)}
-  .brand .bs{font-family:'Montserrat',sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:rgba(245,239,227,.5);margin-top:2px}
-  .eyebrow{font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:.4em;text-transform:uppercase;font-size:11px;color:var(--gold);opacity:.92}
-  h1{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(26px,4.4vw,40px);letter-spacing:-.01em;line-height:1.05}
-  .sub{color:rgba(245,239,227,.62);font-size:14px;max-width:52ch;line-height:1.55}
-  .prize-chip{
-    display:inline-flex;align-items:center;gap:9px;margin-top:2px;white-space:nowrap;
-    background:linear-gradient(150deg,rgba(210,42,56,.16),rgba(210,42,56,.06));
-    border:1px solid rgba(210,42,56,.4);border-radius:100px;padding:8px 18px;
-    font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.05em;color:#F0B9BE;
-  }
-  .prize-chip b{color:var(--ivory)}
-  .prize-chip .ic{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(210,42,56,.25)}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-  /* ---- Wheel stage ---- */
-  .stage{position:relative;margin:26px 0 4px;display:grid;place-items:center}
-  .wheel-size{width:min(86vw,66vh,600px);aspect-ratio:1/1;position:relative}
+    html,
+    body {
+      height: 100%
+    }
 
-  /* outer ornamental bezel */
-  .bezel{
-    position:absolute;inset:0;border-radius:50%;
-    background:
-      radial-gradient(circle at 50% 38%, #F7D79B, #E8B24C 28%, #C28A35 60%, #8C6326 100%);
-    box-shadow:
-      0 0 0 2px rgba(11,18,36,.55),
-      0 30px 70px -24px rgba(0,0,0,.85),
-      inset 0 3px 6px rgba(255,255,255,.55),
-      inset 0 -10px 22px rgba(108,72,22,.65);
-    padding:4.2%;
-  }
-  .bezel-inner{
-    position:absolute;inset:3.4%;border-radius:50%;
-    background:radial-gradient(circle at 50% 60%, #1a274a, var(--navy) 55%, #0e1730 100%);
-    box-shadow:inset 0 0 0 3px rgba(232,178,76,.5), inset 0 8px 28px rgba(0,0,0,.6);
-  }
-  /* light dots ring */
-  .lights{position:absolute;inset:0;pointer-events:none;z-index:4}
-  .lights .dot{
-    position:absolute;width:9px;height:9px;border-radius:50%;left:50%;top:50%;
-    background:radial-gradient(circle at 38% 32%, #FFF4D8, #F7D79B 45%, #C28A35 100%);
-    box-shadow:0 0 7px 1px rgba(247,215,155,.7),0 1px 2px rgba(0,0,0,.5);
-    transform-origin:0 0;
-  }
+    body {
+      background:
+        radial-gradient(1100px 760px at 50% -12%, rgba(34, 51, 90, .7), transparent 62%),
+        radial-gradient(900px 620px at 84% 116%, rgba(168, 23, 42, .18), transparent 56%),
+        radial-gradient(760px 560px at 8% 108%, rgba(232, 178, 76, .10), transparent 55%),
+        var(--navy-night);
+      color: var(--ivory);
+      font-family: 'Outfit', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px 44px;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* rotating disc */
-  .disc-wrap{position:absolute;inset:7.4%;border-radius:50%;z-index:3;
-    transition:transform var(--spin-dur,6s) cubic-bezier(.17,.86,.26,1);
-    will-change:transform;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
-  canvas#wheel{width:100%;height:100%;display:block;border-radius:50%}
+    /* ---- Header ---- */
+    .topbar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      margin-bottom: 6px
+    }
 
-  /* pointer */
-  .pointer{
-    position:absolute;top:-2.4%;left:50%;transform:translateX(-50%);z-index:6;
-    width:13%;height:auto;filter:drop-shadow(0 6px 7px rgba(0,0,0,.55));
-  }
-  .pointer.flick{animation:flick .12s ease}
-  @keyframes flick{0%{transform:translateX(-50%) rotate(0)}50%{transform:translateX(-50%) rotate(-7deg)}100%{transform:translateX(-50%) rotate(0)}}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
 
-  /* center hub / spin button */
-  .hub{
-    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;
-    width:25%;aspect-ratio:1/1;border-radius:50%;border:none;cursor:pointer;
-    background:radial-gradient(circle at 42% 32%, #F7D79B, #E8B24C 46%, #C28A35 78%, #9A6E2A 100%);
-    box-shadow:
-      0 0 0 4px var(--navy),
-      0 0 0 6px rgba(232,178,76,.55),
-      0 14px 30px -8px rgba(0,0,0,.7),
-      inset 0 3px 5px rgba(255,255,255,.7),
-      inset 0 -8px 14px rgba(120,80,26,.7);
-    color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
-    transition:transform .12s ease, box-shadow .2s ease;
-  }
-  .hub:hover{transform:translate(-50%,-50%) scale(1.04)}
-  .hub:active{transform:translate(-50%,-50%) scale(.97)}
-  .hub:disabled{cursor:not-allowed}
-  .hub .ht{font-size:clamp(13px,2.4vw,19px);letter-spacing:.12em;line-height:1}
-  .hub .hi{font-size:9px;letter-spacing:.2em;font-weight:700;opacity:.62;margin-top:2px}
-  .hub .heart{font-size:13px;line-height:1;color:var(--red-deep)}
-  .hub.spinning{animation:hubpulse 1.1s ease-in-out infinite}
-  @keyframes hubpulse{0%,100%{box-shadow:0 0 0 4px var(--navy),0 0 0 6px rgba(232,178,76,.55),0 14px 30px -8px rgba(0,0,0,.7),inset 0 3px 5px rgba(255,255,255,.7),inset 0 -8px 14px rgba(120,80,26,.7)}50%{box-shadow:0 0 0 4px var(--navy),0 0 0 8px rgba(232,178,76,.9),0 14px 36px -6px rgba(232,178,76,.4),inset 0 3px 5px rgba(255,255,255,.7),inset 0 -8px 14px rgba(120,80,26,.7)}}
+    .brand img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(232, 178, 76, .45);
+      object-fit: cover;
+      box-shadow: 0 8px 22px -10px rgba(0, 0, 0, .7)
+    }
 
-  /* ---- controls ---- */
-  .controls{display:flex;align-items:center;gap:14px;margin-top:30px;flex-wrap:wrap;justify-content:center}
-  .btn{
-    font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:.12em;font-size:13px;
-    padding:15px 34px;border-radius:100px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
-    transition:transform .15s ease, box-shadow .2s ease, opacity .2s;
-  }
-  .btn-primary{
-    background:radial-gradient(circle at 35% 25%, #F7D79B, #E8B24C 52%, #C28A35);
-    color:var(--ink);box-shadow:0 14px 30px -10px rgba(232,178,76,.55),inset 0 1px 0 rgba(255,255,255,.55);
-  }
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 36px -10px rgba(232,178,76,.7),inset 0 1px 0 rgba(255,255,255,.55)}
-  .btn-primary:active{transform:translateY(0)}
-  .btn-ghost{background:transparent;color:rgba(245,239,227,.78);border:1px solid rgba(245,239,227,.22)}
-  .btn-ghost:hover{border-color:rgba(232,178,76,.6);color:var(--gold)}
-  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+    .brand .bn {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: .04em;
+      font-size: 15px;
+      white-space: nowrap
+    }
 
-  .history{display:flex;align-items:center;gap:9px;margin-top:20px;min-height:34px;flex-wrap:wrap;justify-content:center;max-width:560px}
-  .history .lab{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,239,227,.4)}
-  .pill{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;color:var(--ink);
-    background:radial-gradient(circle at 38% 30%, #F7D79B,#E8B24C 60%,#C28A35);
-    width:34px;height:34px;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 10px -4px rgba(0,0,0,.6)}
-  .pill.dim{background:rgba(245,239,227,.1);color:rgba(245,239,227,.6);box-shadow:none}
+    .brand .bn span {
+      color: var(--gold)
+    }
 
-  /* ---- winner overlay ---- */
-  .overlay{
-    position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;
-    background:radial-gradient(circle at 50% 40%, rgba(14,23,48,.72), rgba(11,18,36,.92));
-    backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s ease;
-  }
-  .overlay.show{opacity:1;pointer-events:auto}
-  .wincard{
-    position:relative;text-align:center;padding:42px 52px 38px;border-radius:26px;max-width:440px;width:100%;
-    background:linear-gradient(165deg,#1b2a4a,#0e1730);
-    border:1px solid rgba(232,178,76,.45);
-    box-shadow:0 40px 90px -30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06);
-    transform:translateY(16px) scale(.96);transition:transform .4s cubic-bezier(.2,.9,.3,1.1);
-  }
-  .overlay.show .wincard{transform:translateY(0) scale(1)}
-  .wincard .eb{font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:.34em;text-transform:uppercase;font-size:11px;color:var(--gold)}
-  .wincard .num{
-    font-family:'Montserrat',sans-serif;font-weight:900;font-size:118px;line-height:.94;margin:14px 0 6px;
-    background:linear-gradient(165deg,#F7D79B,#E8B24C 55%,#C28A35);-webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 8px 18px rgba(232,178,76,.3));
-  }
-  .wincard .cap{font-size:15px;color:rgba(245,239,227,.72);line-height:1.5}
-  .wincard .cap b{color:var(--ivory)}
-  .wincard .row{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap}
-  .wincard .heart-mark{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:48px;height:48px;border-radius:50%;
-    background:radial-gradient(circle at 40% 32%,#F7D79B,#E8B24C 60%,#C28A35);display:grid;place-items:center;
-    box-shadow:0 8px 20px -6px rgba(0,0,0,.6),0 0 0 4px var(--navy-night);font-size:20px;color:var(--red-deep)}
+    .brand .bs {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 9.5px;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: rgba(245, 239, 227, .5);
+      margin-top: 2px
+    }
 
-  /* confetti */
-  .confetti{position:fixed;inset:0;pointer-events:none;z-index:45;overflow:hidden}
-  .confetti i{position:absolute;top:-20px;width:9px;height:14px;border-radius:2px;opacity:.95;animation:fall linear forwards}
-  @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--gold);
+      opacity: .92
+    }
 
-  .footer{margin-top:30px;font-size:12px;color:rgba(245,239,227,.4);font-family:'Montserrat',sans-serif;letter-spacing:.04em;text-align:center}
-  .footer b{color:rgba(245,239,227,.62);font-weight:700}
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: clamp(26px, 4.4vw, 40px);
+      letter-spacing: -.01em;
+      line-height: 1.05
+    }
 
-  @media (prefers-reduced-motion: reduce){
-    .disc-wrap{transition:transform .8s ease-out}
-  }
-  @media (max-width:560px){
-    .wincard{padding:36px 28px 30px}
-    .wincard .num{font-size:88px}
-    .brand .bn{font-size:13px}
-  }
-</style>
+    .sub {
+      color: rgba(245, 239, 227, .62);
+      font-size: 14px;
+      max-width: 52ch;
+      line-height: 1.55
+    }
+
+    .prize-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 2px;
+      white-space: nowrap;
+      background: linear-gradient(150deg, rgba(210, 42, 56, .16), rgba(210, 42, 56, .06));
+      border: 1px solid rgba(210, 42, 56, .4);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .05em;
+      color: #F0B9BE;
+    }
+
+    .prize-chip b {
+      color: var(--ivory)
+    }
+
+    .prize-chip .ic {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 3px rgba(210, 42, 56, .25)
+    }
+
+    /* ---- Wheel stage ---- */
+    .stage {
+      position: relative;
+      margin: 26px 0 4px;
+      display: grid;
+      place-items: center
+    }
+
+    .wheel-size {
+      width: min(86vw, 66vh, 600px);
+      aspect-ratio: 1/1;
+      position: relative
+    }
+
+    /* outer ornamental bezel */
+    .bezel {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 38%, #F7D79B, #E8B24C 28%, #C28A35 60%, #8C6326 100%);
+      box-shadow:
+        0 0 0 2px rgba(11, 18, 36, .55),
+        0 30px 70px -24px rgba(0, 0, 0, .85),
+        inset 0 3px 6px rgba(255, 255, 255, .55),
+        inset 0 -10px 22px rgba(108, 72, 22, .65);
+      padding: 4.2%;
+    }
+
+    .bezel-inner {
+      position: absolute;
+      inset: 3.4%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 60%, #1a274a, var(--navy) 55%, #0e1730 100%);
+      box-shadow: inset 0 0 0 3px rgba(232, 178, 76, .5), inset 0 8px 28px rgba(0, 0, 0, .6);
+    }
+
+    /* light dots ring */
+    .lights {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4
+    }
+
+    .lights .dot {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      background: radial-gradient(circle at 38% 32%, #FFF4D8, #F7D79B 45%, #C28A35 100%);
+      box-shadow: 0 0 7px 1px rgba(247, 215, 155, .7), 0 1px 2px rgba(0, 0, 0, .5);
+      transform-origin: 0 0;
+    }
+
+    /* rotating disc */
+    .disc-wrap {
+      position: absolute;
+      inset: 7.4%;
+      border-radius: 50%;
+      z-index: 3;
+      transition: transform var(--spin-dur, 6s) cubic-bezier(.17, .86, .26, 1);
+      will-change: transform;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .4))
+    }
+
+    canvas#wheel {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 50%
+    }
+
+    /* pointer */
+    .pointer {
+      position: absolute;
+      top: -2.4%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
+      width: 13%;
+      height: auto;
+      filter: drop-shadow(0 6px 7px rgba(0, 0, 0, .55));
+    }
+
+    .pointer.flick {
+      animation: flick .12s ease
+    }
+
+    @keyframes flick {
+      0% {
+        transform: translateX(-50%) rotate(0)
+      }
+
+      50% {
+        transform: translateX(-50%) rotate(-7deg)
+      }
+
+      100% {
+        transform: translateX(-50%) rotate(0)
+      }
+    }
+
+    /* center hub / spin button */
+    .hub {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 7;
+      width: 25%;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: radial-gradient(circle at 42% 32%, #F7D79B, #E8B24C 46%, #C28A35 78%, #9A6E2A 100%);
+      box-shadow:
+        0 0 0 4px var(--navy),
+        0 0 0 6px rgba(232, 178, 76, .55),
+        0 14px 30px -8px rgba(0, 0, 0, .7),
+        inset 0 3px 5px rgba(255, 255, 255, .7),
+        inset 0 -8px 14px rgba(120, 80, 26, .7);
+      color: var(--ink);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      transition: transform .12s ease, box-shadow .2s ease;
+    }
+
+    .hub:hover {
+      transform: translate(-50%, -50%) scale(1.04)
+    }
+
+    .hub:active {
+      transform: translate(-50%, -50%) scale(.97)
+    }
+
+    .hub:disabled {
+      cursor: not-allowed
+    }
+
+    .hub .ht {
+      font-size: clamp(13px, 2.4vw, 19px);
+      letter-spacing: .12em;
+      line-height: 1
+    }
+
+    .hub .hi {
+      font-size: 9px;
+      letter-spacing: .2em;
+      font-weight: 700;
+      opacity: .62;
+      margin-top: 2px
+    }
+
+    .hub .heart {
+      font-size: 13px;
+      line-height: 1;
+      color: var(--red-deep)
+    }
+
+    .hub.spinning {
+      animation: hubpulse 1.1s ease-in-out infinite
+    }
+
+    @keyframes hubpulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 4px var(--navy), 0 0 0 6px rgba(232, 178, 76, .55), 0 14px 30px -8px rgba(0, 0, 0, .7), inset 0 3px 5px rgba(255, 255, 255, .7), inset 0 -8px 14px rgba(120, 80, 26, .7)
+      }
+
+      50% {
+        box-shadow: 0 0 0 4px var(--navy), 0 0 0 8px rgba(232, 178, 76, .9), 0 14px 36px -6px rgba(232, 178, 76, .4), inset 0 3px 5px rgba(255, 255, 255, .7), inset 0 -8px 14px rgba(120, 80, 26, .7)
+      }
+    }
+
+    /* ---- controls ---- */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center
+    }
+
+    .btn {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      letter-spacing: .12em;
+      font-size: 13px;
+      padding: 15px 34px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform .15s ease, box-shadow .2s ease, opacity .2s;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 35% 25%, #F7D79B, #E8B24C 52%, #C28A35);
+      color: var(--ink);
+      box-shadow: 0 14px 30px -10px rgba(232, 178, 76, .55), inset 0 1px 0 rgba(255, 255, 255, .55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px -10px rgba(232, 178, 76, .7), inset 0 1px 0 rgba(255, 255, 255, .55)
+    }
+
+    .btn-primary:active {
+      transform: translateY(0)
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(245, 239, 227, .78);
+      border: 1px solid rgba(245, 239, 227, .22)
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(232, 178, 76, .6);
+      color: var(--gold)
+    }
+
+    .btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none !important
+    }
+
+    .history {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 20px;
+      min-height: 34px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 560px
+    }
+
+    .history .lab {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(245, 239, 227, .4)
+    }
+
+    .pill {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--ink);
+      background: radial-gradient(circle at 38% 30%, #F7D79B, #E8B24C 60%, #C28A35);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 10px -4px rgba(0, 0, 0, .6)
+    }
+
+    .pill.dim {
+      background: rgba(245, 239, 227, .1);
+      color: rgba(245, 239, 227, .6);
+      box-shadow: none
+    }
+
+    /* ---- winner overlay ---- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: radial-gradient(circle at 50% 40%, rgba(14, 23, 48, .72), rgba(11, 18, 36, .92));
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    .wincard {
+      position: relative;
+      text-align: center;
+      padding: 42px 52px 38px;
+      border-radius: 26px;
+      max-width: 440px;
+      width: 100%;
+      background: linear-gradient(165deg, #1b2a4a, #0e1730);
+      border: 1px solid rgba(232, 178, 76, .45);
+      box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .85), inset 0 1px 0 rgba(255, 255, 255, .06);
+      transform: translateY(16px) scale(.96);
+      transition: transform .4s cubic-bezier(.2, .9, .3, 1.1);
+    }
+
+    .overlay.show .wincard {
+      transform: translateY(0) scale(1)
+    }
+
+    .wincard .eb {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--gold)
+    }
+
+    .wincard .num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 118px;
+      line-height: .94;
+      margin: 14px 0 6px;
+      background: linear-gradient(165deg, #F7D79B, #E8B24C 55%, #C28A35);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 8px 18px rgba(232, 178, 76, .3));
+    }
+
+    .wincard .cap {
+      font-size: 15px;
+      color: rgba(245, 239, 227, .72);
+      line-height: 1.5
+    }
+
+    .wincard .cap b {
+      color: var(--ivory)
+    }
+
+    .wincard .row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 26px;
+      flex-wrap: wrap
+    }
+
+    .wincard .heart-mark {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 32%, #F7D79B, #E8B24C 60%, #C28A35);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, .6), 0 0 0 4px var(--navy-night);
+      font-size: 20px;
+      color: var(--red-deep)
+    }
+
+    /* confetti */
+    .confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 45;
+      overflow: hidden
+    }
+
+    .confetti i {
+      position: absolute;
+      top: -20px;
+      width: 9px;
+      height: 14px;
+      border-radius: 2px;
+      opacity: .95;
+      animation: fall linear forwards
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg)
+      }
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: rgba(245, 239, 227, .4);
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: .04em;
+      text-align: center
+    }
+
+    .footer b {
+      color: rgba(245, 239, 227, .62);
+      font-weight: 700
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .disc-wrap {
+        transition: transform .8s ease-out
+      }
+    }
+
+    @media (max-width:560px) {
+      .wincard {
+        padding: 36px 28px 30px
+      }
+
+      .wincard .num {
+        font-size: 88px
+      }
+
+      .brand .bn {
+        font-size: 13px
+      }
+    }
+  </style>
 </head>
+
 <body>
 
   <div class="topbar" data-screen-label="Ruleta de Sorteo">
@@ -210,18 +604,22 @@
 
   <div class="stage">
     <div class="wheel-size">
-      <div class="bezel"><div class="bezel-inner"></div></div>
+      <div class="bezel">
+        <div class="bezel-inner"></div>
+      </div>
       <div class="lights" id="lights"></div>
       <svg class="pointer" id="pointer" viewBox="0 0 60 84" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#F7D79B"/><stop offset=".5" stop-color="#E8B24C"/><stop offset="1" stop-color="#C28A35"/>
+            <stop offset="0" stop-color="#F7D79B" />
+            <stop offset=".5" stop-color="#E8B24C" />
+            <stop offset="1" stop-color="#C28A35" />
           </linearGradient>
         </defs>
-        <circle cx="30" cy="20" r="19" fill="url(#pg)" stroke="#0E1730" stroke-width="3"/>
-        <path d="M11 28 L49 28 L30 80 Z" fill="url(#pg)" stroke="#0E1730" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="30" cy="19" r="6.5" fill="#0E1730"/>
-        <circle cx="30" cy="19" r="2.6" fill="#F7D79B"/>
+        <circle cx="30" cy="20" r="19" fill="url(#pg)" stroke="#0E1730" stroke-width="3" />
+        <path d="M11 28 L49 28 L30 80 Z" fill="url(#pg)" stroke="#0E1730" stroke-width="3" stroke-linejoin="round" />
+        <circle cx="30" cy="19" r="6.5" fill="#0E1730" />
+        <circle cx="30" cy="19" r="2.6" fill="#F7D79B" />
       </svg>
       <div class="disc-wrap" id="discWrap"><canvas id="wheel" width="1100" height="1100"></canvas></div>
       <button class="hub" id="hub" aria-label="Girar la ruleta">
@@ -247,7 +645,8 @@
       <div class="heart-mark">♥</div>
       <div class="eb">Número ganador</div>
       <div class="num" id="winNum">00</div>
-      <div class="cap" id="winCap">¡Felicidades! Este es el número <b>ganador</b> del Tour Choroní &amp; Tikimijima.</div>
+      <div class="cap" id="winCap">¡Felicidades! Este es el número <b>ganador</b> del Tour Choroní &amp; Tikimijima.
+      </div>
       <div class="row">
         <button class="btn btn-primary" id="againBtn">GIRAR DE NUEVO ▸</button>
         <button class="btn btn-ghost" id="closeBtn">Cerrar</button>
@@ -256,222 +655,223 @@
   </div>
   <div class="confetti" id="confetti"></div>
 
-<script>
-(function(){
-  const COUNT = 100;
-  const SEG = 360 / COUNT;            // 3.6° per segment
-  const canvas = document.getElementById('wheel');
-  const ctx = canvas.getContext('2d');
-  const SIZE = canvas.width;          // 1100
-  const cx = SIZE/2, cy = SIZE/2;
-  const R  = SIZE/2;
+  <script>
+    (function () {
+      const COUNT = 100;
+      const SEG = 360 / COUNT;            // 3.6° per segment
+      const canvas = document.getElementById('wheel');
+      const ctx = canvas.getContext('2d');
+      const SIZE = canvas.width;          // 1100
+      const cx = SIZE / 2, cy = SIZE / 2;
+      const R = SIZE / 2;
 
-  // Palette
-  const NAVY = '#22335A', NAVY_D = '#16213C';
-  const RED  = '#D22A38', RED_D  = '#A8172A';
-  const GOLD = '#E8B24C', IVORY = '#F5EFE3';
+      // Palette
+      const NAVY = '#22335A', NAVY_D = '#16213C';
+      const RED = '#D22A38', RED_D = '#A8172A';
+      const GOLD = '#E8B24C', IVORY = '#F5EFE3';
 
-  // numbers 1..100 in order, clockwise from top
-  const labels = Array.from({length:COUNT}, (_,i)=>i+1);
+      // numbers 1..100 in order, clockwise from top
+      const labels = Array.from({ length: COUNT }, (_, i) => i + 1);
 
-  function drawWheel(){
-    ctx.clearRect(0,0,SIZE,SIZE);
-    for(let i=0;i<COUNT;i++){
-      const a0 = (-90 + i*SEG) * Math.PI/180;
-      const a1 = (-90 + (i+1)*SEG) * Math.PI/180;
-      // alternating fill with subtle radial shading
-      const even = i%2===0;
-      const grad = ctx.createRadialGradient(cx,cy,R*0.18,cx,cy,R);
-      if(even){ grad.addColorStop(0,'#2b3f6e'); grad.addColorStop(1,NAVY_D); }
-      else    { grad.addColorStop(0,'#e23a47'); grad.addColorStop(1,RED_D); }
-      ctx.beginPath();
-      ctx.moveTo(cx,cy);
-      ctx.arc(cx,cy,R-2,a0,a1);
-      ctx.closePath();
-      ctx.fillStyle = grad;
-      ctx.fill();
-      // gold separator
-      ctx.beginPath();
-      ctx.moveTo(cx,cy);
-      ctx.lineTo(cx+(R-2)*Math.cos(a0), cy+(R-2)*Math.sin(a0));
-      ctx.strokeStyle = 'rgba(232,178,76,.55)';
-      ctx.lineWidth = 1.4;
-      ctx.stroke();
-    }
-    // numbers — radial orientation (fits 2-digit numbers in narrow wedges)
-    const textR = R*0.845;
-    ctx.font = '800 ' + Math.round(R*0.046) + "px Montserrat, sans-serif";
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    for(let i=0;i<COUNT;i++){
-      const mid = (-90 + (i+0.5)*SEG) * Math.PI/180;
-      ctx.save();
-      ctx.translate(cx + textR*Math.cos(mid), cy + textR*Math.sin(mid));
-      // radial: digits run along the radius; flip on the left half so none is upside-down
-      let a = mid;
-      if (mid > Math.PI/2 || mid < -Math.PI/2) a = mid + Math.PI;
-      ctx.rotate(a);
-      ctx.fillStyle = IVORY;
-      ctx.shadowColor='rgba(0,0,0,.45)'; ctx.shadowBlur=2.5; ctx.shadowOffsetY=1;
-      ctx.fillText(labels[i], 0, 0);
-      ctx.restore();
-    }
-    // inner ring accent
-    ctx.beginPath();
-    ctx.arc(cx,cy,R*0.985,0,Math.PI*2);
-    ctx.strokeStyle='rgba(232,178,76,.85)'; ctx.lineWidth=R*0.02; ctx.stroke();
-  }
-
-  // light dots around bezel
-  (function buildLights(){
-    const host = document.getElementById('lights');
-    const N=36;
-    function place(){
-      const w = host.clientWidth;
-      if(!w) return;
-      host.innerHTML='';
-      const rr = w*0.463;                 // sit on the gold bezel ring
-      for(let i=0;i<N;i++){
-        const a = (i/N)*Math.PI*2 - Math.PI/2;
-        const d = document.createElement('span'); d.className='dot';
-        const x = rr*Math.cos(a), y = rr*Math.sin(a);
-        d.style.transform = `translate(${x}px,${y}px) translate(-50%,-50%)`;
-        host.appendChild(d);
+      function drawWheel() {
+        ctx.clearRect(0, 0, SIZE, SIZE);
+        for (let i = 0; i < COUNT; i++) {
+          const a0 = (-90 + i * SEG) * Math.PI / 180;
+          const a1 = (-90 + (i + 1) * SEG) * Math.PI / 180;
+          // alternating fill with subtle radial shading
+          const even = i % 2 === 0;
+          const grad = ctx.createRadialGradient(cx, cy, R * 0.18, cx, cy, R);
+          if (even) { grad.addColorStop(0, '#2b3f6e'); grad.addColorStop(1, NAVY_D); }
+          else { grad.addColorStop(0, '#e23a47'); grad.addColorStop(1, RED_D); }
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.arc(cx, cy, R - 2, a0, a1);
+          ctx.closePath();
+          ctx.fillStyle = grad;
+          ctx.fill();
+          // gold separator
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx + (R - 2) * Math.cos(a0), cy + (R - 2) * Math.sin(a0));
+          ctx.strokeStyle = 'rgba(232,178,76,.55)';
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+        }
+        // numbers — radial orientation (fits 2-digit numbers in narrow wedges)
+        const textR = R * 0.845;
+        ctx.font = '800 ' + Math.round(R * 0.046) + "px Montserrat, sans-serif";
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        for (let i = 0; i < COUNT; i++) {
+          const mid = (-90 + (i + 0.5) * SEG) * Math.PI / 180;
+          ctx.save();
+          ctx.translate(cx + textR * Math.cos(mid), cy + textR * Math.sin(mid));
+          // radial: digits run along the radius; flip on the left half so none is upside-down
+          let a = mid;
+          if (mid > Math.PI / 2 || mid < -Math.PI / 2) a = mid + Math.PI;
+          ctx.rotate(a);
+          ctx.fillStyle = IVORY;
+          ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 2.5; ctx.shadowOffsetY = 1;
+          ctx.fillText(labels[i], 0, 0);
+          ctx.restore();
+        }
+        // inner ring accent
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 0.985, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(232,178,76,.85)'; ctx.lineWidth = R * 0.02; ctx.stroke();
       }
-    }
-    place();
-    requestAnimationFrame(place);
-    window.addEventListener('load', place);
-    window.addEventListener('resize', place);
-  })();
 
-  drawWheel();
+      // light dots around bezel
+      (function buildLights() {
+        const host = document.getElementById('lights');
+        const N = 36;
+        function place() {
+          const w = host.clientWidth;
+          if (!w) return;
+          host.innerHTML = '';
+          const rr = w * 0.463;                 // sit on the gold bezel ring
+          for (let i = 0; i < N; i++) {
+            const a = (i / N) * Math.PI * 2 - Math.PI / 2;
+            const d = document.createElement('span'); d.className = 'dot';
+            const x = rr * Math.cos(a), y = rr * Math.sin(a);
+            d.style.transform = `translate(${x}px,${y}px) translate(-50%,-50%)`;
+            host.appendChild(d);
+          }
+        }
+        place();
+        requestAnimationFrame(place);
+        window.addEventListener('load', place);
+        window.addEventListener('resize', place);
+      })();
 
-  // ---- spin logic ----
-  const discWrap = document.getElementById('discWrap');
-  const hub = document.getElementById('hub');
-  const hubText = document.getElementById('hubText');
-  const spinBtn = document.getElementById('spinBtn');
-  const pointer = document.getElementById('pointer');
-  const overlay = document.getElementById('overlay');
-  const winNum = document.getElementById('winNum');
-  const historyEl = document.getElementById('history');
+      drawWheel();
 
-  const LS_ROT = 'cav_ruleta_rot';
-  const LS_HIST = 'cav_ruleta_hist';
-  let rotation = parseFloat(localStorage.getItem(LS_ROT) || '0') || 0;
-  let history = [];
-  try{ history = JSON.parse(localStorage.getItem(LS_HIST)||'[]'); }catch(e){ history=[]; }
-  let spinning = false;
+      // ---- spin logic ----
+      const discWrap = document.getElementById('discWrap');
+      const hub = document.getElementById('hub');
+      const hubText = document.getElementById('hubText');
+      const spinBtn = document.getElementById('spinBtn');
+      const pointer = document.getElementById('pointer');
+      const overlay = document.getElementById('overlay');
+      const winNum = document.getElementById('winNum');
+      const historyEl = document.getElementById('history');
 
-  // apply persisted rotation without animation
-  discWrap.style.transition='none';
-  discWrap.style.transform = `rotate(${rotation}deg)`;
-  requestAnimationFrame(()=>{ discWrap.style.transition=''; });
+      const LS_ROT = 'cav_ruleta_rot';
+      const LS_HIST = 'cav_ruleta_hist';
+      let rotation = parseFloat(localStorage.getItem(LS_ROT) || '0') || 0;
+      let history = [];
+      try { history = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { history = []; }
+      let spinning = false;
 
-  function winnerFromRotation(r){
-    // segment whose center is at top (0°). center_i = i*SEG (clockwise from top)
-    // after rotation r (clockwise), center ends at center_i + r. We want ≡0 → center_i ≡ -r
-    let a = ((-r) % 360 + 360) % 360;
-    let idx = Math.round(a / SEG) % COUNT;
-    return labels[idx];
-  }
+      // apply persisted rotation without animation
+      discWrap.style.transition = 'none';
+      discWrap.style.transform = `rotate(${rotation}deg)`;
+      requestAnimationFrame(() => { discWrap.style.transition = ''; });
 
-  function renderHistory(){
-    historyEl.innerHTML = '';
-    const lab = document.createElement('span'); lab.className='lab'; lab.textContent='Ganadores'; 
-    historyEl.appendChild(lab);
-    if(history.length===0){
-      const p=document.createElement('span'); p.className='pill dim'; p.textContent='—'; historyEl.appendChild(p); return;
-    }
-    history.slice(-8).forEach(n=>{ const p=document.createElement('span'); p.className='pill'; p.textContent=n; historyEl.appendChild(p); });
-  }
-  renderHistory();
+      function winnerFromRotation(r) {
+        // segment whose center is at top (0°). center_i = i*SEG (clockwise from top)
+        // after rotation r (clockwise), center ends at center_i + r. We want ≡0 → center_i ≡ -r
+        let a = ((-r) % 360 + 360) % 360;
+        let idx = Math.round(a / SEG) % COUNT;
+        return labels[idx];
+      }
 
-  // pointer tick on segment crossing (visual flick)
-  let tickRAF=null, lastSeg=null;
-  function watchTicks(){
-    const t = getComputedStyle(discWrap).transform;
-    let ang = 0;
-    if(t && t!=='none'){ const m=t.match(/matrix\(([^)]+)\)/); if(m){ const v=m[1].split(',').map(parseFloat); ang=Math.atan2(v[1],v[0])*180/Math.PI; } }
-    const seg = Math.floor((((-ang)%360+360)%360)/SEG);
-    if(seg!==lastSeg){ lastSeg=seg; pointer.classList.remove('flick'); void pointer.offsetWidth; pointer.classList.add('flick'); }
-    if(spinning) tickRAF=requestAnimationFrame(watchTicks);
-  }
-
-  function spin(){
-    if(spinning) return;
-    spinning=true;
-    hub.disabled=true; spinBtn.disabled=true;
-    hub.classList.add('spinning'); hubText.textContent='…';
-    overlay.classList.remove('show');
-
-    const turns = 5 + Math.floor(Math.random()*3);           // 5–7 full turns
-    const targetIdx = Math.floor(Math.random()*COUNT);        // landing segment
-    const jitter = (Math.random()*2-1) * (SEG*0.32);          // within-segment offset
-    // rotation to bring targetIdx center to top: r ≡ -targetIdx*SEG (mod360)
-    const base = ((-targetIdx*SEG) % 360 + 360) % 360;
-    const current = ((rotation % 360) + 360) % 360;
-    let delta = (base - current + 360) % 360;                 // forward to alignment
-    const dur = 5.6 + Math.random()*0.8;
-    discWrap.style.setProperty('--spin-dur', dur+'s');
-    rotation = rotation + turns*360 + delta + jitter;
-    requestAnimationFrame(()=>{ discWrap.style.transform = `rotate(${rotation}deg)`; });
-
-    lastSeg=null; tickRAF=requestAnimationFrame(watchTicks);
-
-    let finished=false;
-    const finish = ()=>{
-      if(finished) return; finished=true;
-      discWrap.removeEventListener('transitionend', finish);
-      cancelAnimationFrame(tickRAF);
-      spinning=false;
-      hub.disabled=false; spinBtn.disabled=false;
-      hub.classList.remove('spinning'); hubText.textContent='GIRAR';
-      const win = winnerFromRotation(rotation);
-      history.push(win);
-      localStorage.setItem(LS_ROT, String(rotation));
-      localStorage.setItem(LS_HIST, JSON.stringify(history.slice(-40)));
+      function renderHistory() {
+        historyEl.innerHTML = '';
+        const lab = document.createElement('span'); lab.className = 'lab'; lab.textContent = 'Ganadores';
+        historyEl.appendChild(lab);
+        if (history.length === 0) {
+          const p = document.createElement('span'); p.className = 'pill dim'; p.textContent = '—'; historyEl.appendChild(p); return;
+        }
+        history.slice(-8).forEach(n => { const p = document.createElement('span'); p.className = 'pill'; p.textContent = n; historyEl.appendChild(p); });
+      }
       renderHistory();
-      showWinner(win);
-    };
-    // transitionend is the ideal trigger, but it can be paused when the tab/iframe
-    // is backgrounded — so a duration-based timeout is the reliable fallback.
-    discWrap.addEventListener('transitionend', finish, {once:true});
-    setTimeout(finish, dur*1000 + 280);
-  }
 
-  function showWinner(n){
-    winNum.textContent = String(n).padStart(2,'0');
-    overlay.classList.add('show');
-    burstConfetti();
-  }
+      // pointer tick on segment crossing (visual flick)
+      let tickRAF = null, lastSeg = null;
+      function watchTicks() {
+        const t = getComputedStyle(discWrap).transform;
+        let ang = 0;
+        if (t && t !== 'none') { const m = t.match(/matrix\(([^)]+)\)/); if (m) { const v = m[1].split(',').map(parseFloat); ang = Math.atan2(v[1], v[0]) * 180 / Math.PI; } }
+        const seg = Math.floor((((-ang) % 360 + 360) % 360) / SEG);
+        if (seg !== lastSeg) { lastSeg = seg; pointer.classList.remove('flick'); void pointer.offsetWidth; pointer.classList.add('flick'); }
+        if (spinning) tickRAF = requestAnimationFrame(watchTicks);
+      }
 
-  function burstConfetti(){
-    const host=document.getElementById('confetti');
-    const cols=['#E8B24C','#F7D79B','#D22A38','#F5EFE3','#22335A'];
-    for(let i=0;i<70;i++){
-      const c=document.createElement('i');
-      c.style.left=Math.random()*100+'vw';
-      c.style.background=cols[i%cols.length];
-      c.style.animationDuration=(2.4+Math.random()*1.8)+'s';
-      c.style.animationDelay=(Math.random()*0.4)+'s';
-      c.style.width=(6+Math.random()*6)+'px';
-      c.style.height=(10+Math.random()*8)+'px';
-      c.style.opacity=(0.7+Math.random()*0.3).toFixed(2);
-      host.appendChild(c);
-      setTimeout(()=>c.remove(), 4600);
-    }
-  }
+      // ===== FUNCIÓN SPIN MODIFICADA =====
+      function spin() {
+        if (spinning) return;
+        spinning = true;
+        hub.disabled = true; spinBtn.disabled = true;
+        hub.classList.add('spinning'); hubText.textContent = '…';
+        overlay.classList.remove('show');
 
-  hub.addEventListener('click', spin);
-  spinBtn.addEventListener('click', spin);
-  document.getElementById('againBtn').addEventListener('click', ()=>{ overlay.classList.remove('show'); setTimeout(spin,250); });
-  document.getElementById('closeBtn').addEventListener('click', ()=>overlay.classList.remove('show'));
-  overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.classList.remove('show'); });
-  document.getElementById('resetBtn').addEventListener('click', ()=>{
-    history=[]; localStorage.setItem(LS_HIST,'[]'); renderHistory();
-  });
-})();
-</script>
+        const turns = 5 + Math.floor(Math.random() * 3);           // 5–7 full turns
+        // 👇 FORZAMOS que caiga en el 5 o el 79 (50% cada uno)
+        const targetIdx = Math.random() < 0.5 ? 4 : 78;          // índice 4 = número 5, índice 78 = número 79
+
+        const jitter = (Math.random() * 2 - 1) * (SEG * 0.32);          // within-segment offset
+        const base = ((-targetIdx * SEG) % 360 + 360) % 360;
+        const current = ((rotation % 360) + 360) % 360;
+        let delta = (base - current + 360) % 360;
+        const dur = 5.6 + Math.random() * 0.8;
+        discWrap.style.setProperty('--spin-dur', dur + 's');
+        rotation = rotation + turns * 360 + delta + jitter;
+        requestAnimationFrame(() => { discWrap.style.transform = `rotate(${rotation}deg)`; });
+
+        lastSeg = null; tickRAF = requestAnimationFrame(watchTicks);
+
+        let finished = false;
+        const finish = () => {
+          if (finished) return; finished = true;
+          discWrap.removeEventListener('transitionend', finish);
+          cancelAnimationFrame(tickRAF);
+          spinning = false;
+          hub.disabled = false; spinBtn.disabled = false;
+          hub.classList.remove('spinning'); hubText.textContent = 'GIRAR';
+          const win = winnerFromRotation(rotation);
+          history.push(win);
+          localStorage.setItem(LS_ROT, String(rotation));
+          localStorage.setItem(LS_HIST, JSON.stringify(history.slice(-40)));
+          renderHistory();
+          showWinner(win);
+        };
+        discWrap.addEventListener('transitionend', finish, { once: true });
+        setTimeout(finish, dur * 1000 + 280);
+      }
+
+      function showWinner(n) {
+        winNum.textContent = String(n).padStart(2, '0');
+        overlay.classList.add('show');
+        burstConfetti();
+      }
+
+      function burstConfetti() {
+        const host = document.getElementById('confetti');
+        const cols = ['#E8B24C', '#F7D79B', '#D22A38', '#F5EFE3', '#22335A'];
+        for (let i = 0; i < 70; i++) {
+          const c = document.createElement('i');
+          c.style.left = Math.random() * 100 + 'vw';
+          c.style.background = cols[i % cols.length];
+          c.style.animationDuration = (2.4 + Math.random() * 1.8) + 's';
+          c.style.animationDelay = (Math.random() * 0.4) + 's';
+          c.style.width = (6 + Math.random() * 6) + 'px';
+          c.style.height = (10 + Math.random() * 8) + 'px';
+          c.style.opacity = (0.7 + Math.random() * 0.3).toFixed(2);
+          host.appendChild(c);
+          setTimeout(() => c.remove(), 4600);
+        }
+      }
+
+      hub.addEventListener('click', spin);
+      spinBtn.addEventListener('click', spin);
+      document.getElementById('againBtn').addEventListener('click', () => { overlay.classList.remove('show'); setTimeout(spin, 250); });
+      document.getElementById('closeBtn').addEventListener('click', () => overlay.classList.remove('show'));
+      overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('show'); });
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        history = []; localStorage.setItem(LS_HIST, '[]'); renderHistory();
+      });
+    })();
+  </script>
 </body>
+
 </html>
