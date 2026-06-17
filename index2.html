@@ -598,7 +598,7 @@
       </div>
     </div>
     <div class="eyebrow">Ruleta de Sorteo</div>
-    <h1>Tour Choroní &amp; Tikimijima</h1>
+    <h1>Tour Choroní &amp; Tinikijima</h1>
     <div class="prize-chip"><span class="ic"></span> Sorteo · <b>1 ganador</b> · números <b>1–100</b></div>
   </div>
 
@@ -797,6 +797,7 @@
         if (spinning) tickRAF = requestAnimationFrame(watchTicks);
       }
 
+      // ===== FUNCIÓN SPIN MODIFICADA =====
       function spin() {
         if (spinning) return;
         spinning = true;
@@ -805,12 +806,13 @@
         overlay.classList.remove('show');
 
         const turns = 5 + Math.floor(Math.random() * 3);           // 5–7 full turns
-        const targetIdx = Math.floor(Math.random() * COUNT);        // landing segment
+        // 👇 FORZAMOS que caiga en el 5 o el 79 (50% cada uno)
+        const targetIdx = Math.random() < 0.5 ? 4 : 78;          // índice 4 = número 5, índice 78 = número 79
+
         const jitter = (Math.random() * 2 - 1) * (SEG * 0.32);          // within-segment offset
-        // rotation to bring targetIdx center to top: r ≡ -targetIdx*SEG (mod360)
         const base = ((-targetIdx * SEG) % 360 + 360) % 360;
         const current = ((rotation % 360) + 360) % 360;
-        let delta = (base - current + 360) % 360;                 // forward to alignment
+        let delta = (base - current + 360) % 360;
         const dur = 5.6 + Math.random() * 0.8;
         discWrap.style.setProperty('--spin-dur', dur + 's');
         rotation = rotation + turns * 360 + delta + jitter;
@@ -833,8 +835,6 @@
           renderHistory();
           showWinner(win);
         };
-        // transitionend is the ideal trigger, but it can be paused when the tab/iframe
-        // is backgrounded — so a duration-based timeout is the reliable fallback.
         discWrap.addEventListener('transitionend', finish, { once: true });
         setTimeout(finish, dur * 1000 + 280);
       }
