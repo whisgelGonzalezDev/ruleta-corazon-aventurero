@@ -598,7 +598,7 @@
       </div>
     </div>
     <div class="eyebrow">Ruleta de Sorteo</div>
-    <h1>Tour Choroní &amp; Tinikijima</h1>
+    <h1>Ruleta Corazón Aventurero</h1>
     <div class="prize-chip"><span class="ic"></span> Sorteo · <b>1 ganador</b> · números <b>1–100</b></div>
   </div>
 
@@ -806,8 +806,7 @@
         overlay.classList.remove('show');
 
         const turns = 5 + Math.floor(Math.random() * 3);           // 5–7 full turns
-        // 👇 FORZAMOS que caiga en el 5 o el 79 (50% cada uno)
-        const targetIdx = Math.random() < 0.5 ? 4 : 78;          // índice 4 = número 5, índice 78 = número 79
+        const targetIdx = Math.floor(Math.random() * COUNT);
 
         const jitter = (Math.random() * 2 - 1) * (SEG * 0.32);          // within-segment offset
         const base = ((-targetIdx * SEG) % 360 + 360) % 360;
